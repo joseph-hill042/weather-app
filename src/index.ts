@@ -18,12 +18,20 @@ geocode(argv.a, (errorMessage, results) => {
   if (errorMessage) {
     console.error(errorMessage)
   } else {
-    getForecast(results, (errorMessage, results) => {
-      if (errorMessage) {
-        console.error(errorMessage)
-      } else {
-        console.info(JSON.stringify(results, undefined, 2))
+    getForecast(
+      results.latitude,
+      results.longitude,
+      (errorMessage, weatherResults) => {
+        if (errorMessage) {
+          console.error(errorMessage)
+        } else {
+          console.info(
+            `${results.address}\nIt's currently ${
+              weatherResults.temperature
+            }, and feels like ${weatherResults.apparentTemperature}.`
+          )
+        }
       }
-    })
+    )
   }
 })
