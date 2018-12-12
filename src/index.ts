@@ -1,5 +1,7 @@
+import './env'
 import * as yargs from 'yargs'
-import geocode from './geocode/geocode'
+// import geocode from './geocode/geocode'
+import geocode from './geocode/geocodePromise'
 import getForecast from './forecast/forecast'
 
 const argv = yargs
@@ -14,10 +16,8 @@ const argv = yargs
   .help()
   .alias('help', 'h').argv
 
-geocode(argv.a, (errorMessage, results) => {
-  if (errorMessage) {
-    console.error(errorMessage)
-  } else {
+geocode(argv.a)
+  .then(results => {
     getForecast(
       results.latitude,
       results.longitude,
@@ -33,5 +33,5 @@ geocode(argv.a, (errorMessage, results) => {
         }
       }
     )
-  }
-})
+  })
+  .catch(err => console.error(err))

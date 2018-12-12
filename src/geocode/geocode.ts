@@ -1,14 +1,14 @@
 import request from 'request'
 
-const googleApiKey = 'AIzaSyAAaGvFJAE-3Clb74krpDJ6At4Mfc0KZ8s'
-
 const geocodeAddress = (address, callback) => {
   const encodedAddress = encodeURIComponent(address)
 
   request(
     {
       json: true,
-      url: `https://maps.googleapis.com/maps/api/geocode/json?address=${encodedAddress}&key=${googleApiKey}`,
+      url: `https://maps.googleapis.com/maps/api/geocode/json?address=${encodedAddress}&key=${
+        process.env.GOOGLE_API_KEY
+      }`,
     },
     (error, response, body) => {
       if (error) {
