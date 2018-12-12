@@ -11,8 +11,8 @@ const getForecast = (latitude, longitude, callback) => {
     (error, response, body) => {
       if (!error && response.statusCode === 200) {
         callback(undefined, {
-          temperature: body.currently.temperature,
           apparentTemperature: body.currently.apparentTemperature,
+          temperature: body.currently.temperature,
         })
       } else {
         callback('Unable to fetch weather')
